@@ -1,6 +1,6 @@
 ## RealScout Deep Learning Images
 
-[Packer](http://packer.io) templates for caffe and tensorflow based EC2 GPU-enabled  machine and Docker container images from [RealScout](http://realscout.com).
+[Packer](http://packer.io) templates for [Caffe](http://caffe.berkeleyvision.org/) and [TensorFlow](https://www.tensorflow.org/) based EC2 GPU-enabled machine and Docker container images from [RealScout](http://realscout.com).
 
 ## Step 0
 
