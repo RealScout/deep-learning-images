@@ -1,0 +1,32 @@
+{
+    "variables": {
+	"base_ami": null
+    },
+    "builders": [
+	{
+	    "ami_name": "Base plus Caffe {{timestamp}}",
+	    "instance_type": "g2.2xlarge",
+	    "region": "us-east-1",
+	    "source_ami": "{{user `base_ami`}}",
+	    "ssh_username": "ubuntu",
+	    "type": "amazon-ebs"
+	},
+	{
+	    "commit": true,
+	    "image": "ubuntu:14.04",
+	    "type": "docker"
+	}
+    ],
+    "provisioners": [
+	{
+	    "pause_before": "5s",
+	    "type": "file",
+	    "source": "install/caffe-Makefile-{{ build_type }}.config",
+	    "destination": "/tmp/caffe-Makefile.config"
+	},
+	{
+	    "script": "install/caffe.sh",
+	    "type": "shell"
+	}
+    ]
+}

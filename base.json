@@ -1,0 +1,31 @@
+{
+    "variables": {
+	"ubuntu_ami": "ami-415f6d2b"
+    },
+    "builders": [
+	{
+	    "ami_name": "Base {{timestamp}}",
+	    "instance_type": "g2.2xlarge",
+	    "region": "us-east-1",
+	    "source_ami": "{{user `ubuntu_ami`}}",
+	    "ssh_username": "ubuntu",
+	    "type": "amazon-ebs"
+	}
+    ],
+    "provisioners": [
+	{
+	    "pause_before": "5s",
+	    "script": "install/cuda.sh",
+	    "type": "shell"
+	},
+	{
+	    "type": "file",
+	    "source": "install/cudnn-7.0-linux-x64-v4.0-prod.tgz",
+	    "destination": "/tmp/cudnn.tar.gz"
+	},
+	{
+	    "script": "install/cudnn.sh",
+	    "type": "shell"
+	}
+    ]
+}
