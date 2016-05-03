@@ -13,7 +13,7 @@ sudo apt-get update
 sudo apt-get install -y build-essential git swig zip zlib1g-dev
 
 # install bazel deps
-sudo apt-get install software-properties-common  # for add-apt-repository
+sudo apt-get install -y software-properties-common  # for add-apt-repository
 sudo add-apt-repository -y ppa:openjdk-r/ppa
 sudo apt-get update
 sudo apt-get install -y openjdk-8-jdk
