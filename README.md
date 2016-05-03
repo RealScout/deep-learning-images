@@ -1,10 +1,15 @@
 ## RealScout Deep Learning Images
 
-Packer templates for caffe and tensorflow based images from [RealScout](http://realscout.com).
+[Packer](http://packer.io) templates for caffe and tensorflow based EC2 GPU-enabled  machine and Docker container images from [RealScout](http://realscout.com).
 
 ## Step 0
 
 Download the v4 cuDNN bundle from https://developer.nvidia.com/cudnn and place it in `install/`.  We haven't tried the new v5 RC yet!
+
+You'll also need:
+  * [Packer](http://packer.io)
+  * An AWS Account to build AMIs
+  * Docker to build container images
 
 ## Base Image
 
@@ -22,7 +27,7 @@ To build your base image run: `packer build base.json`.  You should get a messag
 ==> amazon-ebs: Waiting for AMI to become ready...
 ```
 
-Note that AMI ID, here ami-6908e904, we'll need it in the next step.
+Note that AMI ID, here `ami-6908e904`, we'll need it in the next step.
 
 ## Base++ Images
 
@@ -32,12 +37,12 @@ Each of these templates will also build Docker container images.  To prevent tha
 
 ### Caffe Image
 
-Caffe version: rc2-856-gc2354b9
+Caffe version: `rc2-856-gc2354b9`
 
 To build your caffe image run: `packer build -var base_ami=ami-6908e904 caffe.json`.
 
 ### TensorFlow Image
 
-TF Version: v0.8.0
+TF Version: `v0.8.0`
 
 To build your tensorflow image run: `packer build -var base_ami=ami-6908e904 tensorflow.json`.
