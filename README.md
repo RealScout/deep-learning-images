@@ -7,9 +7,15 @@
 Download the v4 cuDNN bundle from https://developer.nvidia.com/cudnn and place it in `install/`.  We haven't tried the new v5 RC yet!
 
 You'll also need:
-  * [Packer](http://packer.io)
-  * An AWS Account to build AMIs
-  * Docker to build container images
+  * [Packer](https://www.packer.io/downloads.html)
+  * [An AWS Account](https://aws.amazon.com/getting-started/) to build [AMIs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)
+  * [Docker](http://docker.com) to build container images
+
+Finally, clone this repo and run the commands below from the root of this project.  Probably:
+```
+git clone https://github.com/RealScout/deep-learning-images.git
+cd deep-learning-images
+```
 
 ## Base Image
 
