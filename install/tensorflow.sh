@@ -41,8 +41,7 @@ popd
 
 # install tensorflow
 pushd /tensorflow
-git clone --recurse-submodules https://github.com/tensorflow/tensorflow .
-git checkout $TENSORFLOW_VERSION
+git clone -b $TENSORFLOW_VERSION --recurse-submodules https://github.com/tensorflow/tensorflow .
 GCC_HOST_COMPILER_PATH=/usr/bin/gcc PYTHON_BIN_PATH=/usr/local/bin/python \
     CUDA_TOOLKIT_PATH=/usr/local/cuda CUDNN_INSTALL_PATH=/usr/local/cuda \
     TF_NEED_CUDA=1 TF_CUDA_VERSION=7.5 TF_CUDNN_VERSION=4 \
