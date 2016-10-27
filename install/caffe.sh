@@ -4,19 +4,27 @@ set -o pipefail
 
 CAFFE_VERSION=${1:-c2354b98609916dd9176fbacde4e93184a6996d0}
 
-sudo apt-get update
+# docker image comes without sudo but we're root
+test -e /usr/bin/sudo || (apt update && apt install sudo)
 
-sudo apt-get install -y gfortran git libatlas-base-dev libboost-all-dev libbz2-dev libffi-dev libfreeimage-dev \
+sudo apt update
+
+sudo apt install -y gfortran git libatlas-base-dev libboost-all-dev libbz2-dev libffi-dev libfreeimage-dev \
      libgflags-dev libgoogle-glog-dev libhdf5-serial-dev libjpeg62 libleveldb-dev liblmdb-dev libopencv-dev \
-     libprotobuf-dev libsnappy-dev libssl-dev libxml2-dev libxslt-dev protobuf-compiler python-dev python-numpy \
-     python-pip python-yaml
+     libprotobuf-dev libsnappy-dev libssl-dev libxml2-dev libxslt-dev protobuf-compiler python-dev python-minimal \
+     python-numpy python-pip python-yaml
+
+sudo apt clean
+sudo rm -rf /var/lib/apt/lists/*
+
+sudo pip2 install -U pip
 
 pushd /tmp
 git clone https://github.com/BVLC/caffe.git
 
 pushd caffe
 git checkout $CAFFE_VERSION
-cat python/requirements.txt | xargs -L 1 sudo pip install
+cat python/requirements.txt | xargs -L 1 sudo pip2 install
 cp /tmp/caffe-Makefile.config Makefile.config
 make all pycaffe distribute -j4
 make runtest

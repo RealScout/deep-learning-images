@@ -19,11 +19,17 @@
 	},
 	{
 	    "commit": true,
-	    "image": "ubuntu:14.04",
+	    "image": "ubuntu:16.04",
 	    "type": "docker"
 	}
     ],
     "provisioners": [
+	{
+	    "pause_before": "5s",
+	    "type": "file",
+	    "source": "install/tensorflow-build-conf-{{ build_type }}.sh",
+	    "destination": "/tmp/tensorflow-build-conf.sh"
+	},
 	{
 	    "script": "install/tensorflow.sh",
 	    "type": "shell"
