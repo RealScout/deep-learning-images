@@ -20,7 +20,7 @@
 	},
 	{
 	    "type": "file",
-	    "source": "install/cudnn-7.0-linux-x64-v4.0-prod.tgz",
+	    "source": "install/cudnn-8.0-linux-x64-v5.1.tgz",
 	    "destination": "/tmp/cudnn.tar.gz"
 	},
 	{

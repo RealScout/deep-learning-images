@@ -4,7 +4,7 @@
 
 ## Step 0
 
-Download the v4 cuDNN bundle from https://developer.nvidia.com/cudnn and place it in `install/`.  *note:* https://github.com/RealScout/deep-learning-images/issues/4 *in to upgrade to v5.*
+Download the v5 cuDNN bundle from https://developer.nvidia.com/cudnn and place it in `install/`.
 
 You'll also need:
   * [Packer](https://www.packer.io/downloads.html)
@@ -24,11 +24,11 @@ First create a base image with CUDA and cuDNN libraries installed.  We need a Ub
 To build your base image run: `packer build base.json`.  You should get a message about a successful build including an AMI ID like `ami-xxxxx`.
 
 ```
-==> amazon-ebs: Uploading install/cudnn-7.0-linux-x64-v4.0-prod.tgz => /tmp/cudnn.tar.gz
+==> amazon-ebs: Uploading install/cudnn-8.0-linux-x64-v5.1.tgz => /tmp/cudnn.tar.gz
 ==> amazon-ebs: Provisioning with shell script: install/cudnn.sh
 ==> amazon-ebs: Stopping the source instance...
 ==> amazon-ebs: Waiting for the instance to stop...
-==> amazon-ebs: Creating the AMI: Base 1462298652
+==> amazon-ebs: Creating the AMI: Base 1479906007
     amazon-ebs: AMI: ami-6908e904
 ==> amazon-ebs: Waiting for AMI to become ready...
 ```
@@ -43,12 +43,12 @@ Each of these templates will also build Docker container images.  To prevent tha
 
 ### Caffe Image
 
-Caffe version: `rc2-856-gc2354b9`
+Caffe version: `HEAD`
 
 To build your caffe image run (substitute the ami id from the base step): `packer build -var base_ami=ami-6908e904 caffe.json`.
 
 ### TensorFlow Image
 
-TF Version: `v0.8.0`
+TF Version: `v0.11.0`
 
 To build your tensorflow image run (substitute the ami id from the base step): `packer build -var base_ami=ami-6908e904 tensorflow.json`.

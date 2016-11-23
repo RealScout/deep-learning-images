@@ -2,7 +2,7 @@
 
 set -o pipefail
 
-CAFFE_VERSION=${1:-c2354b98609916dd9176fbacde4e93184a6996d0}
+CAFFE_VERSION=${1:-master}
 
 # docker image comes without sudo but we're root
 test -e /usr/bin/sudo || (apt update && apt install sudo)
