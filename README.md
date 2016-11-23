@@ -4,7 +4,7 @@
 
 ## Step 0
 
-Download the v4 cuDNN bundle from https://developer.nvidia.com/cudnn and place it in `install/`.  *note: caffe doesn't support v5 yet.*
+Download the v4 cuDNN bundle from https://developer.nvidia.com/cudnn and place it in `install/`.  *note: #4 in to upgrade to v5.*
 
 You'll also need:
   * [Packer](https://www.packer.io/downloads.html)
