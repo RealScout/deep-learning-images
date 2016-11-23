@@ -1,24 +1,25 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 
 set -o pipefail
 
 BAZEL_VERSION=tags/0.2.2
 TENSORFLOW_VERSION=v0.8.0rc0
 
+# docker image comes without sudo but we're root
+test -e /usr/bin/sudo || (apt update && apt install sudo)
+
 # set up a big tmp space and a permanent tensorflow space
 sudo mkdir -p -m 1777 /mnt/tmp /tensorflow
 
 # install global deps
-sudo apt-get update
-sudo apt-get install -y build-essential git swig zip zlib1g-dev
+sudo apt update
+sudo apt install -y build-essential curl git openjdk-8-jdk swig zip zlib1g-dev
 
 # install bazel deps
-sudo apt-get install -y software-properties-common  # for add-apt-repository
-sudo add-apt-repository -y ppa:openjdk-r/ppa
-sudo apt-get update
-sudo apt-get install -y openjdk-8-jdk
-sudo update-alternatives --config java
-sudo update-alternatives --config javac
+#sudo update-alternatives --config java
+#sudo update-alternatives --config javac
+sudo apt clean
+sudo rm -rf /var/lib/apt/lists/*
 
 # install bazel
 pushd /mnt/tmp
@@ -42,13 +43,14 @@ popd
 # install tensorflow
 pushd /tensorflow
 git clone -b $TENSORFLOW_VERSION --recurse-submodules https://github.com/tensorflow/tensorflow .
+(
+set -a
+test -e /tmp/tensorflow-build-conf.sh && source /tmp/tensorflow-build-conf.sh
 GCC_HOST_COMPILER_PATH=/usr/bin/gcc PYTHON_BIN_PATH=/usr/local/bin/python \
-    CUDA_TOOLKIT_PATH=/usr/local/cuda CUDNN_INSTALL_PATH=/usr/local/cuda \
-    TF_NEED_CUDA=1 TF_CUDA_VERSION=7.5 TF_CUDNN_VERSION=4 \
-    TF_CUDA_COMPUTE_CAPABILITIES=3.0 TF_UNOFFICIAL_SETTING=1 \
-    ./configure
-bazel build -c opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
+    ./configure < /dev/null
+bazel build -c opt $BAZEL_CONFIG //tensorflow/tools/pip_package:build_pip_package
 bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
+)
 sudo /usr/local/bin/pip install /tmp/tensorflow_pkg/tensorflow-0.8.0rc0-py3-none-any.whl
 
 # build retrainer

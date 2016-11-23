@@ -4,7 +4,7 @@
 
 ## Step 0
 
-Download the v4 cuDNN bundle from https://developer.nvidia.com/cudnn and place it in `install/`.  We haven't tried the new v5 RC yet!
+Download the v4 cuDNN bundle from https://developer.nvidia.com/cudnn and place it in `install/`.  *note: caffe doesn't support v5 yet.*
 
 You'll also need:
   * [Packer](https://www.packer.io/downloads.html)
@@ -19,7 +19,7 @@ cd deep-learning-images
 
 ## Base Image
 
-First create a base image with CUDA and cuDNN libraries installed.  We need a plain old ubuntu AMI to start building up from, the template includes a recent one that can be overriden by passing `-var ubuntu_ami=ami-xxxx` to packer.
+First create a base image with CUDA and cuDNN libraries installed.  We need a Ubuntu 16.04 AMI to start building up from, the template includes a [recent one](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Images:visibility=public-images;imageId=ami-40d28157;sort=creationDate) that can be overriden by passing `-var ubuntu_ami=ami-xxxx` to packer.
 
 To build your base image run: `packer build base.json`.  You should get a message about a successful build including an AMI ID like `ami-xxxxx`.
 
@@ -39,16 +39,16 @@ Note that AMI ID, here `ami-6908e904`, we'll need it in the next step.
 
 Now follow instructions for your favorite deep learning package.  You could combine them and make one enormous image with all of them installed.
 
-Each of these templates will also build Docker container images.  To prevent that, pass `-only=amazon-ebs` to packer.  *note:* docker container images are not GPU-enabled as currently configured.
+Each of these templates will also build Docker container images.  To prevent that, pass `-only=amazon-ebs` to packer.  Use `-only=docker` to only build the docker images.  *note: docker container images are not GPU-enabled as currently configured.*
 
 ### Caffe Image
 
 Caffe version: `rc2-856-gc2354b9`
 
-To build your caffe image run: `packer build -var base_ami=ami-6908e904 caffe.json`.
+To build your caffe image run (substitute the ami id from the base step): `packer build -var base_ami=ami-6908e904 caffe.json`.
 
 ### TensorFlow Image
 
 TF Version: `v0.8.0`
 
-To build your tensorflow image run: `packer build -var base_ami=ami-6908e904 tensorflow.json`.
+To build your tensorflow image run (substitute the ami id from the base step): `packer build -var base_ami=ami-6908e904 tensorflow.json`.
