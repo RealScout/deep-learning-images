@@ -4,9 +4,6 @@ set -o pipefail
 
 CAFFE_VERSION=${1:-master}
 
-# docker image comes without sudo but we're root
-test -e /usr/bin/sudo || (apt update && apt install sudo)
-
 sudo apt update
 
 sudo apt install -y gfortran git libatlas-base-dev libboost-all-dev libbz2-dev libffi-dev libfreeimage-dev \

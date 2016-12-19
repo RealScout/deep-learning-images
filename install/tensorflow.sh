@@ -5,9 +5,6 @@ set -o pipefail
 BAZEL_VERSION=0.3.2
 TENSORFLOW_VERSION=v0.11.0
 
-# docker image comes without sudo but we're root
-test -e /usr/bin/sudo || (apt update && apt install sudo)
-
 # set up a big tmp space and a permanent tensorflow space
 sudo mkdir -p -m 1777 /mnt/tmp /tensorflow
 
