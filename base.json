@@ -18,6 +18,10 @@
 	    "type": "shell"
 	},
 	{
+	    "script": "install/disable-unattended-upgrades.sh",
+	    "type": "shell"
+	},
+	{
 	    "pause_before": "5s",
 	    "script": "install/cuda.sh",
 	    "type": "shell"
