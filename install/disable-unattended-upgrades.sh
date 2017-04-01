@@ -1,4 +1,4 @@
-#/bin/bash -e
+#!/bin/bash -e
 
 # disable unattended upgrades that run on boot since 16.04, resulting in:
 #   amazon-ebs: E: Could not get lock /var/lib/dpkg/lock - open (11: Resource temporarily unavailable)
